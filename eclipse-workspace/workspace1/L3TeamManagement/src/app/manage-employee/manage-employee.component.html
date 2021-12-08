@@ -1,0 +1,39 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h1>Employees</h1>
+    </div>
+
+    <div class="panel-body">
+    	<select [(ngModel)]="stream" (change)="navigateTo('stream');">
+   			<option *ngFor="let team of teams" [ngValue]="team.value">{{team.display}}</option>
+		</select>
+        <table *ngIf="showTable" class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                	<th>Employee Id</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Stream</th>
+                    <th>Allowance Eligible</th>
+                    <th>Team Lead</th>
+                    <th>Buffer</th>
+                    <th>Active</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let employee of employees">
+                	<td [ngClass]="{'lead':employee.team_lead == true }">{{employee.empl_id}}</td>
+                    <td [ngClass]="{'lead':employee.team_lead == true }">{{employee.first_name}}</td>
+                    <td [ngClass]="{'lead':employee.team_lead == true }">{{employee.last_name}}</td>
+                    <td [ngClass]="{'lead':employee.team_lead == true }">{{employee.stream}}</td>
+                    <td [ngClass]="{'lead':employee.team_lead == true }">{{employee.allowance_eligible}}</td>
+                    <td [ngClass]="{'lead':employee.team_lead == true }">{{employee.team_lead}}</td>
+                    <td [ngClass]="{'lead':employee.team_lead == true }">{{employee.buffer}}</td>
+                    <td [ngClass]="{'lead':employee.team_lead == true }">{{employee.active}}</td>
+                    
+                    <td><button >Modify</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,81 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h1>Allowance</h1>
+    </div>
+    
+    
+ 
+    <input ng-model="search" type="text" placeholder="Enter Only Name">&nbsp;
+    <select [(ngModel)]="allowancemonth" (change)="refreshData();">
+  		<option *ngFor="let month of months" [ngValue]="month.value">{{month.display}}</option>
+	</select>&nbsp;
+	<select [(ngModel)]="allowanceyear" (change)="refreshData();">
+  		<option *ngFor="let year of years" [ngValue]="year.value">{{year.display}}</option>
+	</select>
+		&nbsp;
+    <button type="button" (click)="changeView();" *ngIf="showSummaryTable" class="btn btn-primary">Show Details</button>
+    <button type="button" (click)="changeView();" *ngIf="showDetailsTable" class="btn btn-primary">Show Summary</button>
+    &nbsp;
+    <button type="button" (click)="exportTable();" *ngIf="showSummaryTable || showDetailsTable" class="btn btn-primary">Export</button>
+    &nbsp;
+    <div class="panel-body">
+       <table id="AllowanceDetailsTable" data-show-footer="true" [hidden]="!showDetailsTable" class="table table-bordered">
+            <thead>
+            <tr>
+                	<th >Emp Id</th>
+                	<th >Emp Name</th>
+                	<th >Stream</th>
+                	<th >Time</th>
+                	<th *ngFor="let elem of items">{{elem}}</th>
+                	<th>Tot # Of Days</th>
+                	<th>Allowance Per Day</th>
+                	<th>Tot Allowance For this shift</th>
+             </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let data of allowance">
+        			<tr>
+            			<td [attr.rowspan]="getLength(data.allowanceDetails) + 1">{{data.empId}}</td>
+            			<td [attr.rowspan]="getLength(data.allowanceDetails) + 1">{{data.empName}}</td>
+            			<td [attr.rowspan]="getLength(data.allowanceDetails) + 1">{{data.stream}}</td>
+            		</tr>
+            		
+            				<ng-container *ngFor="let dtls of data.allowanceDetails | keyvalue">
+            				<tr>
+            					<td>{{dtls.value.startTime +'-'+ dtls.value.endTime}}</td>
+	            				<ng-container *ngFor="let elem of items">
+	            					<td *ngIf="dtls.value.workDaysHrs[elem];else elseIf">{{dtls.value.workDaysHrs[elem]}}</td>
+	            					<ng-template #elseIf><td></td></ng-template>
+	            				</ng-container>
+	            				<td>{{getLength(dtls.value.workDaysHrs)}}</td>
+	            				<td>50</td>
+	            				<td>{{50 * getLength(dtls.value.workDaysHrs)}}</td>
+	            			</tr>
+            				</ng-container>			
+    			</ng-container>
+            </tbody>
+        </table>
+        
+        <table id="AllowanceSummaryTable" data-show-footer="true" [hidden]="!showSummaryTable" class="table table-bordered">
+            <thead>
+            <tr>
+                	<th >Emp Id</th>
+                	<th >Emp Name</th>
+                	<th >Stream</th>
+                	<th >Total ALlowance</th>
+             </tr>
+            </thead>
+            <tbody>
+        			<tr *ngFor="let data of allowance">
+            			<td>{{data.empId}}</td>
+            			<td>{{data.empName}}</td>
+            			<td>{{data.stream}}</td>
+            			<td>{{ data.totalAllowanceForthePeriod }}</td>
+            		</tr>
+            </tbody>
+        </table>
+   
+    </div>
+    
+    
+</div>

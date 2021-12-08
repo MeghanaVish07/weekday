@@ -1,0 +1,21 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h1>Schedule</h1>
+    </div>
+    
+    
+    <div class="panel-body">
+        <table class="table table-striped table-bordered" *ngFor="let tabledata of dataArray | Keyvalue">
+            <thead>
+                <tr>
+                	<th *ngFor = "let column of tabledata['headers']">{{column}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor = "let row of tabledata['data']">
+    				<td *ngFor = "let column of headers">{{row[column]}}</td>
+  				</tr>
+            </tbody>
+        </table>
+    </div>
+</div>

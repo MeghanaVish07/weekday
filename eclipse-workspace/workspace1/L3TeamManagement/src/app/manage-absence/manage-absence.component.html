@@ -1,0 +1,52 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h1>Absence</h1>
+    </div>
+    
+    
+    <div class="panel-body">
+    	<select [(ngModel)]="absenceMonth" (change)="refreshData();">
+   			<option *ngFor="let month of months" [ngValue]="month.value">{{month.display}}</option>
+		</select>&nbsp;
+		<select [(ngModel)]="absenceYear" (change)="refreshData();">
+   			<option *ngFor="let year of years" [ngValue]="year.value">{{year.display}}</option>
+		</select>
+		&nbsp;
+		<button type="button" (click)="changeView();" *ngIf="showHolidays" class="btn btn-primary">Show Absence</button>
+    	<button type="button" (click)="changeView();" *ngIf="showAbsence" class="btn btn-primary">Show Holidays</button>
+		&nbsp;
+       <table *ngIf="showAbsence" class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                	<th>Employee Id</th>
+                    <th>Name</th>
+                    <th>Absence Date</th>
+                    <th>Absence Reason</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let absence of absenceDetails">
+                	<td>{{absence.employeeId}}</td>
+                    <td>{{absence.employeeName}}</td>
+                    <td>{{absence.absenceDate}}</td>
+                    <td>{{absence.absenceReason}}</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <table *ngIf="showHolidays" class="table table-striped table-bordered">
+            <thead>
+            <tr>
+                	<th >Holiday Date</th>
+                	<th >Reason</th>
+             </tr>
+            </thead>
+            <tbody>
+        			<tr *ngFor="let holiday of holidays">
+            			<td>{{holiday.holiday_date}}</td>
+            			<td>{{holiday.holiday_reason}}</td>
+            		</tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,14 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+  <h1>
+    Welcome to {{ title }}!
+  </h1>
+  <img width="100" alt="Hexaware Technologies " src="assets/images/th.jpg">
+</div>
+<h4>What would you like to do?</h4>
+<select [(ngModel)]="destination" (change)="navigateTo('destination');">
+   <option value="" disabled>Select an action</option>
+   <option *ngFor="let action of actions" [ngValue]="action.value">{{action.display}}</option>
+</select>
+
+<router-outlet></router-outlet>
